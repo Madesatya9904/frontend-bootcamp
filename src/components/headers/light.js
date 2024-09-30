@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -6,16 +6,20 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import { IoCart } from "react-icons/io5";
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
 
-import logo from "../../images/cek-toko-sebelah.png";
+import logo from "../../images/baruinibos.png";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { useCart } from "react-use-cart";
 import { Link } from "react-router-dom";
+import { useAuth } from "context/AuthProvider.js";
 
 const Header = tw.header`
   flex justify-between items-center
   max-w-screen-xl mx-auto
 `;
+
+
+
 
 export const NavLinks = tw.div`flex`;
 
@@ -24,7 +28,7 @@ export const NavLinks = tw.div`flex`;
  */
 export const NavLink = tw.a`
   text-lg my-2 lg:text-sm lg:mx-6 lg:my-auto
-  font-semibold tracking-wide transition duration-300
+  font-bold font-mono tracking-wide transition duration-300
   pb-1 border-b-2 border-transparent hover:border-primary-500 hocus:text-primary-500
 `;
 
@@ -39,7 +43,7 @@ export const LogoLink = styled(NavLink)`
   ${tw`flex items-center font-black border-b-0 text-2xl! ml-0!`};
 
   img {
-    ${tw`w-40 mr-3`}
+    ${tw`w-[80px] mr-3`}
   }
 `;
 
@@ -92,6 +96,15 @@ export default ({
 
   const { totalItems } = useCart();
 
+  const user = JSON.parse(localStorage.getItem('user'));
+  const { logout, login } = useAuth()
+
+  const [openModal, setOpenModal] = useState(false)
+
+  function modal() {
+    setOpenModal(!openModal)
+  }
+
   //  TODO
   //  1.Panggil local storage user simpan didalam variabel user
   //  2.Buat button logout dan gunakan fungsi logout dari AuthProvider
@@ -123,9 +136,23 @@ export default ({
         </Link>
       </NavLink>
 
-      <PrimaryLink css={roundedHeaderButton && tw`rounded-full`} href="/#">
-        <Link to={"/login"}>Login</Link>
-      </PrimaryLink>
+      {user ?
+        <div className="relative ml-5">
+          <p onClick={modal} className="cursor-pointer">{user?.name}</p>
+          {openModal && 
+          <div className="absolute right-0 ">
+            <button className="w-20" onClick={logout}>Log Out</button>
+          </div>
+          }
+        </div>
+        :
+
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`} href="/#">
+          <Link to="/login">
+            Login
+          </Link>
+        </PrimaryLink>
+      }
     </NavLinks>,
   ];
 

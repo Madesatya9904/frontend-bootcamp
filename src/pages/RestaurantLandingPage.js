@@ -10,6 +10,7 @@ import ProductGrid from "components/cards/TabCardGrid.js";
 import Testimonial from "components/testimonials/ThreeColumnWithProfileImage.js";
 import DownloadApp from "components/cta/DownloadApp.js";
 import Footer from "components/footers/FiveColumnWithInputForm.js";
+import logo from "../images/tumler-hero.png"
 
 import chefIconImageSrc from "images/chef-icon.svg";
 import celebrationIconImageSrc from "images/celebration-icon.svg";
@@ -17,7 +18,7 @@ import shopIconImageSrc from "images/shop-icon.svg";
 
 export default () => {
   const Subheading = tw.span`tracking-wider text-sm font-medium`;
-  const HighlightedText = tw.span`bg-primary-500 text-gray-100 px-4 transform -skew-x-12 inline-block`;
+  const HighlightedText = tw.span`bg-gradient-to-l from-[#9d4edd] to-[#c77dff] text-white px-4 transform -skew-x-12 inline-block`;
   const HighlightedTextInverse = tw.span`bg-gray-100 text-primary-500 px-4 transform -skew-x-12 inline-block`;
   const Description = tw.span`inline-block mt-8`;
   const imageCss = tw`rounded-4xl`;
@@ -31,23 +32,35 @@ export default () => {
       <Hero
         heading={
           <>
-            Delicious & Affordable{" "}
-            <HighlightedText>Meals Near You.</HighlightedText>
+            E-Commerce Tumbler
+            <HighlightedText>Murah & Berkualitas</HighlightedText>
           </>
         }
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        imageSrc="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"
+        description="Belilah tumbler berkualitas tinggi dengan harga terjangkau hanya di sini!"
+        imageSrc={logo}
         imageCss={imageCss}
         imageDecoratorBlob={true}
-        primaryButtonText="Order Now"
-        watchVideoButtonText="Meet The Chefs"
+        primaryButtonText="Harus Beli"
+        watchVideoButtonText="Watch Video"
       />
+      <MainFeature 
+      subheading="Tetap Terhidrasi dengan Gaya, Pilih dari Koleksi Tumbler Terbaik Kami"
+      description="Kami menawarkan berbagai pilihan tumbler berkualitas tinggi dengan harga yang terjangkau. Dari desain yang stylish hingga bahan yang tahan lama, tumbler kami dirancang untuk memenuhi kebutuhan hidrasi Anda sepanjang hari. Belilah tumbler yang sempurna untuk Anda di sini!"
+      />
+      <Features 
+      heading="Feature Tumbler"
+      subheading="Made In Indonesian"
+      />
+      <MainFeature2
+      description="Kami berdedikasi untuk menyediakan produk berkualitas tinggi dan layanan terbaik sejak tahun 1999. Dengan pengalaman bertahun-tahun, kami terus berinovasi dan meningkatkan kualitas untuk memenuhi kebutuhan Anda."/>
+      <ProductGrid/>
+      <Testimonial/>
 
       <DownloadApp
         text={
           <>
-            People around you are ordering delicious meals using the{" "}
-            <HighlightedTextInverse>Treact App.</HighlightedTextInverse>
+            Download Now!{" "}
+            <HighlightedTextInverse>Tumbler App.</HighlightedTextInverse>
           </>
         }
       />

@@ -86,25 +86,29 @@ export default ({ heading = "Checkout the Menu" }) => {
   const [quantity, setQuantity] = useState(1);
   const [tabsKeys, setTabsKeys] = useState([
     "Best Sellers",
-    "Main",
-    "Soup",
-    "Desserts",
+    "Kaos",
+    "Sepatu",
+    "Jaket",
   ]);
   const [activeTab, setActiveTab] = useState("Best Sellers");
   const { addItem, updateItemQuantity, items } = useCart();
-  const { products } = useProductsContext();
+  const { products, getProductById } = useProductsContext();
   const getRandomCards = () => {
     const cards = products;
     return cards.sort(() => Math.random() - 0.5);
   };
 
+  const kaosfilter = products.filter((product) => product.category === "Kaos")
+  const filter = (category) => {
+    products?.filter((product) => product.category === category)
+  }
   const tabs = {
     "Best Sellers": products
       .sort((a, b) => b.stars - a.stars) // Sort by stars in descending order
       .slice(0, 8), // Get the top 8 items
-    Main: getRandomCards(), // Perbaharui filter berdasarkan Kaos
-    Soup: getRandomCards(), // Perbaharui filter berdasarkan Sepatu
-    Desserts: getRandomCards(), // Perbaharui filter berdasarkan Jaket
+    Kaos: kaosfilter, // Perbaharui filter berdasarkan Kaos
+    Sepatu: products.filter((product) => product.category === "Sepatu"), // Perbaharui filter berdasarkan Sepatu
+    Jaket: products.filter((product) => product.category === "Jaket"), // Perbaharui filter berdasarkan Jaket
   };
 
   const openModal = (item) => {
@@ -129,7 +133,7 @@ export default ({ heading = "Checkout the Menu" }) => {
       const quantityNumber = Number(quantity);
 
       // Berikan validasi jika stock habis
-
+      
       if (items[selectedItem.name]) {
         updateItemQuantity(
           selectedItem.id,
@@ -202,7 +206,7 @@ export default ({ heading = "Checkout the Menu" }) => {
                   whileHover="hover"
                   animate="rest"
                 >
-                  <Link to={`/detail-product/${card.id}`}>
+                  <Link onClick={() => getProductById(card.id)} to={`/detail-product/${card.id}`}>
                     <CardImageContainer
                       image={card.image}
                       className="flex items-center justify-center"

@@ -6,9 +6,9 @@ import { SectionHeading, Subheading as SubheadingBase } from "components/misc/He
 import { SectionDescription } from "components/misc/Typography.js";
 import { Container, ContentWithPaddingXl } from "components/misc/Layouts.js";
 import { ReactComponent as ArrowRightIcon } from "images/arrow-right-icon.svg";
-import SupportIconImage from "images/support-icon.svg";
-import ShieldIconImage from "images/shield-icon.svg";
-import CustomizeIconImage from "images/customize-icon.svg";
+import SupportIconImage from "images/kokohkuat.svg";
+import ShieldIconImage from "images/temperature-thermometer-icon.svg";
+import CustomizeIconImage from "images/refresh-ccw.svg";
 import { ReactComponent as SvgDecoratorBlob3 } from "images/svg-decorator-blob-3.svg";
 
 const Heading = tw(SectionHeading)``;
@@ -26,16 +26,16 @@ const Card = styled.a`
   .imageContainer {
     ${tw`text-center rounded-full p-4 bg-gray-100`}
     img {
-      ${tw`w-8 h-8`}
+      ${tw`w-8 h-8 object-fill`}
     }
   }
 
   .title {
-    ${tw`mt-4 font-bold text-xl leading-none`}
+    ${tw`mt-4 font-bold text-[#9D4EDD] text-xl leading-none`}
   }
 
   .description {
-    ${tw`mt-4 text-sm font-medium text-secondary-300`}
+    ${tw`mt-4 text-sm font-medium text-[#260A33]`}
   }
 
   .link {
@@ -54,20 +54,20 @@ export default ({
   cards = [
     {
       imageSrc: ShieldIconImage,
-      title: "Secure",
-      description: "We strictly only deal with vendors that provide top notch security.",
+      title: "Menjaga Suhu Dingin Dan Panas",
+      description: "Kami bermitra hanya dengan vendor yang memberikan keamanan terbaik untuk memastikan minuman Anda tetap panas atau dingin.",
       url: "https://timerse.com"
     },
     {
       imageSrc: SupportIconImage,
-      title: "24/7 Support",
-      description: "Lorem ipsum donor amet siti ceali placeholder text",
+      title: "Anti Pecah",
+      description: "umbler kami dibuat dengan material berkualitas tinggi yang tahan terhadap benturan dan tidak mudah pecah.",
       url: "https://google.com"
     },
     {
       imageSrc: CustomizeIconImage,
-      title: "Customizable",
-      description: "Lorem ipsum donor amet siti ceali placeholder text",
+      title: "Dapat Disesuaikan",
+      description: "Sesuaikan tumbler Anda dengan pilihan warna, desain, dan ukiran nama sesuai keinginan Anda.",
       url: "https://reddit.com"
     }
   ],

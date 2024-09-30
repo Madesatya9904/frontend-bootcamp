@@ -1,14 +1,17 @@
 import axios from "axios";
+import instance from "helpers/Interseptor";
+import AxiosInterseptor from "helpers/Interseptor";
 import React, { useContext, useEffect, useState } from "react";
 
 const ProductsContext = React.createContext();
 
 export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState({})
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(
-        "https://65cc9d71dd519126b83f161f.mockapi.io/api/v1/products"
+      const response = await instance.get(
+        process.env.REACT_APP_API_URL + "/products"
       );
 
       // Memotong array hasil response menjadi 14 data
@@ -23,9 +26,14 @@ export const ProductsProvider = ({ children }) => {
 
   const getProductById = async (id) => {
     try {
-      // Your code
+
+      const response = await instance.get(
+        process.env.REACT_APP_API_URL + `/products/${id}`
+      );
+
+      setProduct(response.data)
     } catch (err) {
-      // Your code
+      console.error(err);
     }
   };
 
@@ -33,10 +41,15 @@ export const ProductsProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
+  console.log("test", product)
+  
   return (
     <ProductsContext.Provider
       value={{
         products,
+        product,
+        setProduct,
+        getProductById
       }}
     >
       {children}

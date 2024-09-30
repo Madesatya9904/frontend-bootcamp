@@ -10,13 +10,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { formatPrice } from "helpers/helpers";
 import { FaStar, FaStarHalf, FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useProductsContext } from "context/product_context";
+import { color } from "framer-motion";
 
 const DetailProduct = () => {
   const { id } = useParams();
   const { addItem, items, updateItemQuantity } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [product, setProduct] = useState({});
+  const { product, setProduct, getProductById} = useProductsContext()
   const [showModal, setShowModal] = useState(false);
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -52,12 +54,25 @@ const DetailProduct = () => {
 
   const handleAddToCart = () => {
     if (selectedItem && selectedColor) {
-      // Lengkapi code berikut
+      const quantityNumber = Number(quantity)
+
+      if(quantityNumber > product.stock){
+        toast('Stock melebihi yang tersedia',{
+          position: 'top-center',
+        })
+       return
+      }
+      addItem({...product,color:selectedColor,id:`${product.id}-${selectedColor}`,trueid:product.id}, quantity)
+      toast.success('asdfasdf') 
+    } else {
+      toast.error('asdfasdf')
     }
+    setShowModal(false)
   };
 
   useEffect(() => {
-    // Your code here
+    console.log(id)
+    getProductById(id)
   }, [id]);
 
   const handleChangePrice = () => {
@@ -72,6 +87,7 @@ const DetailProduct = () => {
     const updatedPrice = handleChangePrice();
     setProduct((prevProduct) => ({ ...prevProduct, updatedPrice }));
   }, [quantity, product.price]);
+
 
   return (
     <AnimationRevealPage>
@@ -90,7 +106,7 @@ const DetailProduct = () => {
               {Array.isArray(product.images) && product.images.length > 0 && (
                 <>
                   <ProductImage
-                    src={product.images[mainImageIndex].url}
+                    src={process.env.REACT_APP_API_URL + "/images/" + product.images[mainImageIndex]}
                     alt={product.name}
                   />
                 </>
@@ -100,7 +116,7 @@ const DetailProduct = () => {
                   {product.images.map((image, index) => (
                     <img
                       key={index}
-                      src={image.url}
+                      src={process.env.REACT_APP_API_URL + "/images/" + image}
                       alt={`${product.name} - ${index + 1}`}
                       className={`h-20 w-20 rounded cursor-pointer ${
                         index === mainImageIndex
@@ -115,7 +131,7 @@ const DetailProduct = () => {
             </div>
 
             <ProductInfo>
-              <Title>Nama Product </Title>
+              <Title>{product.name} </Title>
               <RatingReviews>
                 <div className="flex items-center justify-center md:justify-normal">
                   {product.stars}
@@ -140,21 +156,21 @@ const DetailProduct = () => {
                       );
                     })}
                   </span>
-                  | Reviews:
+                  | {product.reviews}
                 </div>
               </RatingReviews>
               <Description>Deskripsi</Description>
               <div>
-                <p className="mb-2">Available : </p>
-                <p className="mb-2">SKU : </p>
-                <p className="mb-2">Company :</p>
+                <p className="mb-2">Available : {product.stock} </p>
+                <p className="mb-2">Description : {product.desc}</p>
+                <p className="mb-2">Brand : {product.brand}</p>
                 <hr className="my-4 h-1 border bg-gray-500" />
 
                 <div className="flex">
-                  <p className="my-auto mr-4">Colors : </p>
-                  {Array.isArray(product.colors) && (
+                  <p className="my-auto mr-4">Colors :  </p>
+                  {Array.isArray(product.color) && (
                     <div className="flex space-x-2">
-                      {product.colors.map((color, index) => (
+                      {product.color.map((color, index) => (
                         <div
                           key={index}
                           className={`relative w-8 h-8 rounded-full cursor-pointer border-2 ${

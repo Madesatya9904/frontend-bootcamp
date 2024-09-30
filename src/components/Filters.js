@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useFilterContext } from "../context/filter_context";
 import { getUniqueValues, formatPrice } from "../helpers/helpers";
 import { FaCheck } from "react-icons/fa";
+import axios from "axios";
+import AxiosInterseptor from "helpers/Interseptor";
+import instance from "helpers/Interseptor";
 
 const Filters = () => {
   const {
     filters: {
       text,
       category,
-      company,
+      brand,// brand
       color,
       min_price,
       price,
@@ -21,11 +24,32 @@ const Filters = () => {
     clearFilters,
   } = useFilterContext();
 
-  const categories = getUniqueValues(all_products, "category");
-  const companies = getUniqueValues(all_products, "company");
-  const colors = getUniqueValues(all_products, "colors");
+  const brands = getUniqueValues(all_products, "brand");// brand
+  const colors = getUniqueValues(all_products, "color");
 
-  console.log("categories", categories);
+  const [categories, setCategories] = useState([])
+  const user = JSON.parse(localStorage.getItem("user"))
+
+  const getCategorys = async () => {
+    try {
+      const res = await instance.get(process.env.REACT_APP_API_URL + "/category",
+        {
+          headers: {
+            Authorization: `${user?.token}`
+          }
+        }
+      )
+      console.log("data", res)
+      const category = res.data.map((item) => item.name )
+      setCategories(["all", ...category])
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getCategorys()
+  }, [])
+
   return (
     <Wrapper>
       <div className="content">
@@ -46,35 +70,33 @@ const Filters = () => {
           <div className="form-control justify-start">
             <h5 className="font-bold">Category</h5>
             <div>
-              {categories &&
-                categories.map((c, index) => {
-                  return (
-                    <button
-                      key={index}
-                      onClick={updateFilters}
-                      type="button"
-                      name="category"
-                      className={`${
-                        category === c.toLowerCase() ? "active" : null
+              {categories.map((c, index) => {
+                return (
+                  <button
+                    key={index}
+                    onClick={updateFilters}
+                    type="button"
+                    name="category"
+                    className={`${category === String(c).toLowerCase() ? "active" : null
                       }`}
-                    >
-                      {c}
-                    </button>
-                  );
-                })}
+                  >
+                    {c}
+                  </button>
+                );
+              })}
             </div>
           </div>
           {/* end of category */}
           {/* company */}
           <div className="form-control ">
-            <h5 className="font-bold">Company</h5>
+            <h5 className="font-bold">Brand</h5>
             <select
-              name="company"
-              value={company}
+              name="brand"// brand
+              value={brand}// brand
               onChange={updateFilters}
               className="company text-sm"
             >
-              {companies.map((c, index) => {
+              {brands.map((c, index) => {
                 return (
                   <option key={index} value={c}>
                     {c}
@@ -96,9 +118,8 @@ const Filters = () => {
                       name="color"
                       onClick={updateFilters}
                       data-color="all"
-                      className={`${
-                        color === "all" ? "all-btn active" : "all-btn"
-                      }`}
+                      className={`${color === "all" ? "all-btn active" : "all-btn"
+                        }`}
                     >
                       all
                     </button>
@@ -109,9 +130,8 @@ const Filters = () => {
                     key={index}
                     name="color"
                     style={{ background: c }}
-                    className={`${
-                      color === c ? "color-btn active" : "color-btn"
-                    }`}
+                    className={`${color === c ? "color-btn active" : "color-btn"
+                      }`}
                     data-color={c}
                     onClick={updateFilters}
                   >

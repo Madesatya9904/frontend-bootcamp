@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AxiosInterseptor from "helpers/Interseptor";
+import instance from "helpers/Interseptor";
 
 const AuthContext = createContext();
 
@@ -14,38 +18,50 @@ export const AuthProvider = ({ children }) => {
   const [form, setForm] = useState({
     email: "",
     password: "",
-    permissions: [],
-    role: "",
   });
 
-  const dataUser = {
-    email: form.email,
-    password: form.password,
-  };
-  const url = process.env.REACT_APP_API_URL;
-
+  const url = process.env.REACT_APP_API_URL
   const login = async () => {
     setLoading(true);
-
     try {
-      const response = await axios.post(
-        `http://localhost:8000/auth/login`,
-        dataUser
+
+      console.log(url)
+      const response = await instance.post(
+        `${url}/auth/customer/sign-in`,
+        JSON.stringify(form), // Send dataUser as JSON
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
-      const user = response.data;
+      const data = response.data;
 
       navigation(redirectPath, { replace: true });
-      localStorage.setItem("user", JSON.stringify(user));
-      alert("Login Berhasil, Selamat Datang Admin");
-      navigation("/");
+      await localStorage.setItem("user", JSON.stringify(data));
+      toast.success(`Login Success, Welcome ${data.name}`, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      navigation(-1);
       setUser(user);
     } catch (error) {
       console.error(error);
-      alert(
-        error?.response?.data?.error ||
-          "Login Gagal, Terjadi Kesalahan Pada Server"
-      );
+      toast.error(`There is a problem with the server`, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       setError(error);
     } finally {
       setLoading(false);
@@ -55,7 +71,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    navigation("/");
+    navigation(-1);
   };
 
   return (
