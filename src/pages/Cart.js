@@ -58,7 +58,9 @@ const Cart = () => {
       <Container>
         <Content>
           {items.length === 0 ? (
-            <p>Kosong Bang</p>
+            <div className="p-5">
+            <p className="text-center ">Empty Checkout</p>
+          </div>
           ) : (
             <>
               {items.map((item) => (

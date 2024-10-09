@@ -54,21 +54,21 @@ export default ({
   cards = [
     {
       imageSrc: ShieldIconImage,
-      title: "Menjaga Suhu Dingin Dan Panas",
-      description: "Kami bermitra hanya dengan vendor yang memberikan keamanan terbaik untuk memastikan minuman Anda tetap panas atau dingin.",
-      url: "https://timerse.com"
+      title: "Keeping Cold and Hot Temperatures",
+      description: "We partner only with vendors that provide the best security to ensure your drinks stay hot or cold.",
+      url: "#"
     },
     {
       imageSrc: SupportIconImage,
-      title: "Anti Pecah",
-      description: "umbler kami dibuat dengan material berkualitas tinggi yang tahan terhadap benturan dan tidak mudah pecah.",
-      url: "https://google.com"
+      title: "Shatterproof",
+      description: "Our tumblers are made from high-quality materials that are impact-resistant and not easily breakable.",
+      url: "3"
     },
     {
       imageSrc: CustomizeIconImage,
-      title: "Dapat Disesuaikan",
-      description: "Sesuaikan tumbler Anda dengan pilihan warna, desain, dan ukiran nama sesuai keinginan Anda.",
-      url: "https://reddit.com"
+      title: "Customizable",
+      description: "Personalize your tumbler with your choice of colors, designs, and name engravings to suit your style.",
+      url: ""
     }
   ],
   linkText = "Learn More",

@@ -40,15 +40,15 @@ const DecoratorBlob = styled(SvgDotPattern)(props => [
 ]);
 
 export default ({
-  subheading = "Rekam Jejak Kami",
+  subheading = "Our Track Record",
   heading = (
     <>
-     Kami Telah Melakukan Ini<wbr /> Sejak <span tw="text-[#9D4EDD]">1999.</span>
+      We Have Been Doing This<wbr /> Since <span tw="text-[#9D4EDD]">1999.</span>
     </>
   ),
   description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   primaryButtonText = "Learn More",
-  primaryButtonUrl = "https://timerse.com",
+  primaryButtonUrl = "#",
   imageSrc = StatsIllustrationSrc,
   imageCss = null,
   imageContainerCss = null,
@@ -62,15 +62,15 @@ export default ({
   //Change the statistics variable as you like, add or delete objects
   const defaultStatistics = [
     {
-      key: "Klien",
+      key: "Client",
       value: "99999+"
     },
     {
-      key: "Proyek",
+      key: "Project",
       value: "99999+"
     },
     {
-      key: "Penghargaan",
+      key: "Awards",
       value: "99999+"
     }
   ];

@@ -14,6 +14,7 @@ import instance from "helpers/Interseptor";
 const Checkout = () => {
   const { register, handleSubmit, getValues } = useForm();
   const { items, emptyCart, cartTotal } = useCart();
+  const [loading , setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const user = JSON.parse(localStorage.getItem('user'));
@@ -103,147 +104,175 @@ const Checkout = () => {
     if (currentPage === 1) {
       return (
         <AnimationRevealPage>
-          <Header className="mb-4" />
-          <div className="items-center flex justify-center flex-col">
-            <h1 className="text-center text-[1.25rem] md:text-[1.5rem] font-bold font-mono">
-              Data Pribadi
-            </h1>
-            <div className="">
-              <div className="flex flex-col">
-                <label className="text-black font-semibold font-mono text-[1rem] md:text-[1.10rem]" htmlFor="address">
-                  Masukan Tempat Tinggal Anda
-                </label>
-                <input
-                  className="bg-transparent px-[0.5rem] py-[0.25rem] placeholder-primary-900"
-                  type="text"
-                  name="address"
-                  placeholder="Input Your Address"
-                  {...register("address")}
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="text-black font-semibold font-mono text-[1rem] md:text-[1.10rem]" htmlFor="country">
-                  Masukan Kota Anda
-                </label>
-                <input
-                  className="bg-transparent px-[0.5rem] py-[0.25rem] placeholder-primary-900"
-                  type="text"
-                  name="country"
-                  placeholder="Input your country"
-                  {...register("country")}
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="text-black font-semibold font-mono text-[1rem] md:text-[1.10rem]" htmlFor="postal_code">
-                  Masukan Post Code Anda
-                </label>
-                <input
-                  className="bg-transparent px-[0.5rem] py-[0.25rem] placeholder-primary-900"
-                  type="text"
-                  name="postal_code"
-                  placeholder="Input your postalcode"
-                  {...register("postal_code")}
-                />
-              </div>
-            </div>
-            <div className="">
-              <h1 className="text-[1rem] md:text-[1.25rem] font-bold font-mono">
-                Informasi Pembayaran
-              </h1>
-              <div className="flex flex-col my-1">
-                <label htmlFor="card_type" className="text-black font-mono text-[1rem] md:text-[1.10rem]">
-                  Metode Pembayaran
-                </label>
-                <select className="bg-transparent px-[0.5rem] py-[0.25rem]" name="payment_method" {...register("payment_method")}>
-                  <option value="">Pilihan anda</option>
-                  <option value="Ngutang">Ngutang</option>
-                  <option value="Cod">Cash On Delivery</option>
-                  <option value="card">Kartu Kredit/Debit</option>
-                </select>
-              </div>
-            </div>
-            <div className="flex justify-center mt-4">
-              <button
-                onClick={handleSubmit(onSubmit)}
-                className="bg-green-600 px-[0.75rem] py-[0.5rem] font-mono text-white rounded-lg"
+        <Header className="mb-4" />
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-center text-xl md:text-2xl font-bold font-mono mb-4">
+            Personal Information
+          </h1>
+          <div className="w-full max-w-md">
+            <div className="flex flex-col mb-4">
+              <label
+                className="text-black font-semibold font-mono text-base md:text-lg"
+                htmlFor="address"
               >
-                Anda Yakin..
-              </button>
+                Your Address
+              </label>
+              <input
+                className="bg-transparent px-4 py-2 border rounded-md placeholder-primary-900"
+                type="text"
+                name="address"
+                placeholder="Enter Your Address"
+                {...register("address")}
+              />
+            </div>
+            <div className="flex flex-col mb-4">
+              <label
+                className="text-black font-semibold font-mono text-base md:text-lg"
+                htmlFor="country"
+              >
+                Your City
+              </label>
+              <input
+                className="bg-transparent px-4 py-2 border rounded-md placeholder-primary-900"
+                type="text"
+                name="country"
+                placeholder="Enter Your City"
+                {...register("country")}
+              />
+            </div>
+            <div className="flex flex-col mb-4">
+              <label
+                className="text-black font-semibold font-mono text-base md:text-lg"
+                htmlFor="postal_code"
+              >
+                Your Postal Code
+              </label>
+              <input
+                className="bg-transparent px-4 py-2 border rounded-md placeholder-primary-900"
+                type="text"
+                name="postal_code"
+                placeholder="Enter Your Postal Code"
+                {...register("postal_code")}
+              />
             </div>
           </div>
-          <Footer background="bg-white" />
-        </AnimationRevealPage>
+          <div className="w-full max-w-md mb-8">
+            <h1 className="text-lg md:text-xl font-bold font-mono">
+              Payment Information
+            </h1>
+            <div className="flex flex-col my-2">
+              <label
+                htmlFor="payment_method"
+                className="text-black font-mono text-base md:text-lg"
+              >
+                Payment Method
+              </label>
+              <select
+                className="bg-transparent px-4 py-2 border rounded-md"
+                name="payment_method"
+                {...register("payment_method")}
+              >
+                <option value="">Select your payment method</option>
+                <option value="Ngutang">Ngutang</option>
+                <option value="Cod">Cash On Delivery</option>
+                <option value="card">Credit/Debit Card</option>
+              </select>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <button
+              onClick={handleSubmit(onSubmit)}
+              disabled={loading}
+              className="bg-green-600 px-6 py-3 font-mono text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Proceed
+            </button>
+          </div>
+        </div>
+        <Footer background="bg-white" />
+      </AnimationRevealPage>
       );
     } else if (currentPage === 2) {
       const { address, country, postal_code } = getValues();
       return (
         <AnimationRevealPage>
           <Header className="mb-8" />
-          <h1 className="text-center text-[20px] font-bold font-mono">
-            Checkout Page
-          </h1>
-          <div>
-            <h2 className="text-center text-[18px] font-bold font-mono">
-              Informasi Pribadi
+          <h1 className="text-center text-xl font-bold font-mono">Checkout</h1>
+          <div className="mb-8">
+            <h2 className="text-center text-lg font-bold font-mono">
+              Personal Information
             </h2>
-            <p className="text-center text-[16px] font-mono">
-              Alamat: {address || formData.address}
+            <p className="text-center text-base font-mono">
+              Address: {address || formData.address}
             </p>
-            <p className="text-center text-[16px] font-mono">
-              Negara: {country || formData.country}
+            <p className="text-center text-base font-mono">
+              City: {country || formData.country}
             </p>
-            <p className="text-center text-[16px] font-mono">
+            <p className="text-center text-base font-mono">
               Postal Code: {postal_code || formData.postal_code}
             </p>
           </div>
-          <div>
+          <div className="w-full max-w-4xl mx-auto">
             {items.length === 0 ? (
-              <p>Kosong Bang</p>
+              <div className="p-5">
+                <p className="text-center">Your cart is empty.</p>
+              </div>
             ) : (
               <>
                 {items.map((item) => (
                   <div
                     key={item.id}
-                    className="flex md:flex md:flex-row flex-col items-center justify-between bg-white p-4 rounded-lg shadow-md mb-4"
+                    className="flex md:flex-row flex-col items-center justify-between bg-white p-4 rounded-lg shadow-md mb-4"
                   >
-                    <div className="flex items-center">
+                    <div className="flex items-center w-full md:w-1/4 mb-4 md:mb-0">
                       <img
-                        src={ process.env.REACT_APP_API_URL+"/images/" + item.images[0]}
+                        src={
+                          process.env.REACT_APP_API_URL + "/images/" + item.images[0]
+                        }
                         alt={item.name}
-                        className="w-20 h-20 object-cover mr-4"
+                        className="w-full h-32 object-cover rounded-lg"
                       />
                     </div>
-                    <div className="flex flex-col md:flex-row md:gap-x-32 mt-2">
-                      <p>Name : {item.name}</p>
-                      <p>Deskripso : {item.desc}</p>
-                      <p>Harga : {item.price} Per Item</p>
+                    <div className="flex flex-col md:flex-row md:gap-x-32 mt-2 w-full md:w-3/4">
+                      <p>Name: {item.name}</p>
+                      <p>Description: {item.desc}</p>
+                      <p>Price: {item.price} / item</p>
                     </div>
-                    <div className="flex items-center">
-                      <div className="w-10 text-center border-t border-b mt-2 border-gray-300">{item.quantity}</div>
+                    <div className="w-20 text-center border-t border-b mt-2 border-gray-300">
+                      {item.quantity}
                     </div>
                   </div>
                 ))}
                 <div className="flex justify-between items-center mt-8">
-                  <div className="flex mx-4">
+                  <div className="flex">
                     <button
                       onClick={handleEmptyCart}
-                      className="bg-red-500 text-white px-4 py-2 rounded"
+                      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
                     >
                       Empty Cart
                     </button>
-                    <button type="submit" className="bg-green-700 text-white px-4 py-2 rounded mx-4">
-                      Check Out
+                    <button
+                      onClick={goToBackPage}
+                      className="bg-gray-500 text-white ml-4 px-4 py-2 rounded hover:bg-gray-600 transition-colors"
+                    >
+                      Back
                     </button>
                   </div>
-                  <p className="text-xl font-bold">
-                    Total: {calculateTotalPrice()}
-                  </p>
+                  <div className="text-lg font-bold">
+                    Total Price: {calculateTotalPrice()}
+                  </div>
+                  <button
+                    onClick={createOrder}
+                    disabled={loading}
+                    className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition-colors"
+                  >
+                    Complete Checkout
+                  </button>
                 </div>
               </>
             )}
           </div>
-          <button onClick={goToBackPage}>Back</button>
-          <Footer background="bg-white" />
+          <Footer />
         </AnimationRevealPage>
       );
     }

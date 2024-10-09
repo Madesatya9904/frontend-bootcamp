@@ -37,20 +37,22 @@ export const AuthProvider = ({ children }) => {
       );
 
       const data = response.data;
-
-      navigation(redirectPath, { replace: true });
-      await localStorage.setItem("user", JSON.stringify(data));
-      toast.success(`Login Success, Welcome ${data.name}`, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      navigation(-1);
-      setUser(user);
+      if (data) {
+        localStorage.setItem("user", JSON.stringify(data));
+        navigation(redirectPath,  { replace: true });
+        toast.success(`Login Success, Welcome ${data.name}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        navigation(-1);
+        setUser(user);
+      }
+    
     } catch (error) {
       console.error(error);
       toast.error(`There is a problem with the server`, {

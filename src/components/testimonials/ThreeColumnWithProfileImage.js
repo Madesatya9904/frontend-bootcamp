@@ -27,30 +27,27 @@ const DecoratorBlob2 = styled(SvgDecoratorBlob2)`
 
 export default ({
   subheading = "Testimonials",
-  heading = "Customer's Review",
-  testimonials = [
-    {
-      imageSrc:
-        "https://images.unsplash.com/photo-1583314965950-cd54a8b6db84?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      quote:
-        "Tumbler nya Kuat Sekali :v",
-      customerName: "Charlotte Hale"
-    },
-    {
-      imageSrc:
-        "https://images.unsplash.com/photo-1520694478166-daaaaec95b69?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      quote:
-        "Cocok untuk minum bukan untuk dimakan hehehe",
-      customerName: "Asep Mahyadi Sapul"
-    },
-    {
-      imageSrc:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.25&w=512&h=512&q=80",
-      quote:
-        "Murah Sekali dan Berkualitas",
-      customerName: "Kiki jiji"
-    },
-  ]
+heading = "Customer's Review",
+testimonials = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1583314965950-cd54a8b6db84?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    quote: "The tumbler is very strong :v",
+    customerName: "Charlotte Hale"
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1520694478166-daaaaec95b69?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    quote: "Perfect for drinking, not for eating hehehe",
+    customerName: "Asep Mahyadi Sapul"
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.25&w=512&h=512&q=80",
+    quote: "Very affordable and high quality",
+    customerName: "Kiki jiji"
+  }
+]
 }) => {
   return (
     <Container>

@@ -23,38 +23,42 @@ export default () => {
       <Header />
       <MainFeature1
         subheading={<Subheading>About Treact</Subheading>}
-        heading="We are a modern design agency."
+        heading="Designing the Future, Today"
+        description="We are a forward-thinking design agency focused on blending creativity with innovation to craft visually stunning and highly functional solutions. Our mission is to transform ideas into impactful designs that stand out in the modern world."
         buttonRounded={false}
+        primaryButtonUrl="#"
         primaryButtonText="See Portfolio"
         imageSrc="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=768&q=80"
       />
       <MainFeature1
         subheading={<Subheading>Our Vision</Subheading>}
-        heading="We aim to disrupt the design space."
+        heading="Redefining Tumbler Design, One Sip at a Time"
+        description="We’re on a mission to revolutionize how you think about everyday products. Our goal is to blend innovation with style, creating tumblers that are not just functional but also a statement of design excellence."
         buttonRounded={false}
+        primaryButtonUrl="/contact-us"
         primaryButtonText="Contact Us"
         imageSrc="https://images.unsplash.com/3/doctype-hi-res.jpg?ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80"
-        textOnLeft={false}
+        textOnLeft={true}
       />
       <Features
         subheading={<Subheading>Our Values</Subheading>}
-        heading="We follow these."
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        heading="Our Core Values"
+        description="Guiding Every Tumbler We Create"
         cards={[
           {
             imageSrc: SupportIconImage,
-            title: "24/7 Support",
-            description: "Lorem ipsum donor amet siti ceali placeholder text alipiscing elit sed do eiusmod temport"
+            title: "Always Here for You",
+            description: "Our dedicated team provides 24/7 support to ensure you’re never left without answers, because your satisfaction is our priority."
           },
           {
             imageSrc: ShieldIconImage,
-            title: "Strong Teams",
-            description: "Lorem ipsum donor amet siti ceali placeholder text alipiscing elit sed do eiusmod temport"
+            title: "Collaborative Excellence",
+            description: "Behind every great tumbler is a strong, united team. We work together to bring you the best in design, quality, and innovation."
           },
           {
             imageSrc: CustomerLoveIconImage,
-            title: "Customer Satisfaction",
-            description: "Lorem ipsum donor amet siti ceali placeholder text alipiscing elit sed do eiusmod temport"
+            title: "Your Happiness, Our Goal",
+            description: "Customer satisfaction isn’t just a promise—it’s the foundation of everything we do. We strive to exceed your expectations with every product."
           },
         ]}
         linkText=""

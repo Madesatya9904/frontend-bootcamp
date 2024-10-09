@@ -63,9 +63,13 @@ const DetailProduct = () => {
        return
       }
       addItem({...product,color:selectedColor,id:`${product.id}-${selectedColor}`,trueid:product.id}, quantity)
-      toast.success('asdfasdf') 
+      toast.success('Adding in Cart', {
+        position: "top-center"
+      }) 
     } else {
-      toast.error('asdfasdf')
+      toast.error('Something when wrong', {
+        position: "top-center"
+      })
     }
     setShowModal(false)
   };
@@ -131,34 +135,7 @@ const DetailProduct = () => {
             </div>
 
             <ProductInfo>
-              <Title>{product.name} </Title>
-              <RatingReviews>
-                <div className="flex items-center justify-center md:justify-normal">
-                  {product.stars}
-                  <span className=" flex mx-2">
-                    {[...Array(5)].map((_, index) => {
-                      const starValue = index + 1;
-                      const isHalfStar =
-                        starValue - 0.5 === Math.floor(product.stars);
-
-                      return (
-                        <span key={index} className="my-auto ">
-                          {starValue <= product.stars ? (
-                            isHalfStar ? (
-                              <FaStarHalf style={{ color: "#fbbf24" }} />
-                            ) : (
-                              <FaStar style={{ color: "#fbbf24" }} />
-                            )
-                          ) : (
-                            <FaStar style={{ color: "#d1d5db" }} />
-                          )}
-                        </span>
-                      );
-                    })}
-                  </span>
-                  | {product.reviews}
-                </div>
-              </RatingReviews>
+              <Title className="max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap">{product.name} </Title>
               <Description>Deskripsi</Description>
               <div>
                 <p className="mb-2">Available : {product.stock} </p>
@@ -215,11 +192,12 @@ const DetailProduct = () => {
       {showModal && (
         <>
           <ModalContainer>
-            <ModalContent>
+            <ModalContent className="">
               <h2 tw="text-2xl font-semibold mb-4">
                 Are you sure want add this item to cart?
               </h2>
-              <p>Name : {selectedItem.name}</p>
+              <div className="flex flex-col justify-center items-center text-center">
+              <p className="max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap text-center">Name : {selectedItem.name}</p>
               <p>Quantity : {quantity}</p>
               <div className="flex items-center justify-center">
                 <p className="my-auto mr-3">Color : </p>
@@ -227,6 +205,7 @@ const DetailProduct = () => {
                   className={`relative w-8 h-8 rounded-full cursor-pointer border-2 `}
                   style={{ backgroundColor: selectedColor }}
                 ></div>
+              </div>
               </div>
               <button
                 className="text-sm cursor-pointer bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-700"

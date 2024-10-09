@@ -23,6 +23,7 @@ export default () => {
   const Description = tw.span`inline-block mt-8`;
   const imageCss = tw`rounded-4xl`;
 
+  const num = "9"
   // TODO
   // 1. Panggil component yang harusnya ada di halaman ini
   // 2. Modifikasi styling dan value property yang dimiliki component
@@ -32,35 +33,33 @@ export default () => {
       <Hero
         heading={
           <>
-            E-Commerce Tumbler
-            <HighlightedText>Murah & Berkualitas</HighlightedText>
+            E-Commerce Punch
+            <HighlightedText>Affordable & Quality</HighlightedText>
           </>
         }
-        description="Belilah tumbler berkualitas tinggi dengan harga terjangkau hanya di sini!"
+        description="Buy your tumblers at Punch—high quality at affordable prices, right now!"
         imageSrc={logo}
         imageCss={imageCss}
         imageDecoratorBlob={true}
-        primaryButtonText="Harus Beli"
-        watchVideoButtonText="Watch Video"
+        primaryButtonText="Buy Now!"
       />
       <MainFeature 
-      subheading="Tetap Terhidrasi dengan Gaya, Pilih dari Koleksi Tumbler Terbaik Kami"
-      description="Kami menawarkan berbagai pilihan tumbler berkualitas tinggi dengan harga yang terjangkau. Dari desain yang stylish hingga bahan yang tahan lama, tumbler kami dirancang untuk memenuhi kebutuhan hidrasi Anda sepanjang hari. Belilah tumbler yang sempurna untuk Anda di sini!"
+      subheading="Stay Hydrated in Style, Choose from Our Best Tumbler Collection!"
+      description="We offer a wide selection of high-quality tumblers at affordable prices. From stylish designs to durable materials, our tumblers are crafted to meet your hydration needs throughout the day. Find the perfect tumbler for you right here!"
       />
       <Features 
       heading="Feature Tumbler"
       subheading="Made In Indonesian"
       />
       <MainFeature2
-      description="Kami berdedikasi untuk menyediakan produk berkualitas tinggi dan layanan terbaik sejak tahun 1999. Dengan pengalaman bertahun-tahun, kami terus berinovasi dan meningkatkan kualitas untuk memenuhi kebutuhan Anda."/>
-      <ProductGrid/>
+      description="We are dedicated to providing high-quality products and the best service since the 9th century AD. With years of experience, we continuously innovate and improve our quality to meet your needs."/>
       <Testimonial/>
 
       <DownloadApp
         text={
           <>
             Download Now!{" "}
-            <HighlightedTextInverse>Tumbler App.</HighlightedTextInverse>
+            <HighlightedTextInverse>Punch App.</HighlightedTextInverse>
           </>
         }
       />
