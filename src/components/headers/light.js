@@ -138,12 +138,19 @@ export default ({
 
       {user ?
         <div className="relative ml-5">
-          <p onClick={modal} className="cursor-pointer">{user?.name}</p>
-          {openModal && 
-          <div className="absolute right-0 ">
-            <button className="w-20" onClick={logout}>Log Out</button>
-          </div>
-          }
+          <p onClick={modal} 
+      className="cursor-pointer bg-[#5011CC] px-8 py-3 text-white rounded-xl hover:bg-[#3D0BAF] transition duration-300"
+      >{user?.name}</p>
+          {openModal && (
+      <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg p-4 z-10 transition-all duration-300 ease-in-out">
+        <button
+          className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition duration-300"
+          onClick={logout}
+        >
+          Log Out
+        </button>
+      </div>
+    )}
         </div>
         :
 
