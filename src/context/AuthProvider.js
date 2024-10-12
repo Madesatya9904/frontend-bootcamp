@@ -72,8 +72,21 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("user");
-    navigation(-1);
+  localStorage.removeItem("user");
+
+  // Redirect ke halaman login 
+  navigation("/login", { replace: true });
+
+  // toast message jika logout
+  toast.success("You have successfully logged out.", {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
   };
 
   return (
