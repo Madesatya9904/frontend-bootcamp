@@ -54,6 +54,7 @@ const Checkout = () => {
   };
 
   const createOrder = async (datas) => {
+    setLoading(true); 
     try {
       const response = await instance.post(process.env.REACT_APP_API_URL +"/orders", formData,
         {
@@ -85,6 +86,8 @@ const Checkout = () => {
         autoClose: 3000,
         hideProgressBar: false,
       })
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -106,13 +109,13 @@ const Checkout = () => {
         <AnimationRevealPage>
         <Header className="mb-4" />
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-center text-xl md:text-2xl font-bold font-mono mb-4">
+          <h1 className="text-center text-lg md:text-xl font-bold font-mono mb-4">
             Personal Information
           </h1>
           <div className="w-full max-w-md">
             <div className="flex flex-col mb-4">
               <label
-                className="text-black font-semibold font-mono text-base md:text-lg"
+                className="text-black font-mono text-lg md:text-xl"
                 htmlFor="address"
               >
                 Your Address
@@ -127,7 +130,7 @@ const Checkout = () => {
             </div>
             <div className="flex flex-col mb-4">
               <label
-                className="text-black font-semibold font-mono text-base md:text-lg"
+                className="text-black font-mono text-lg md:text-xl"
                 htmlFor="country"
               >
                 Your City
@@ -142,7 +145,7 @@ const Checkout = () => {
             </div>
             <div className="flex flex-col mb-4">
               <label
-                className="text-black font-semibold font-mono text-base md:text-lg"
+                className="text-black font-mono text-lg md:text-xl"
                 htmlFor="postal_code"
               >
                 Your Postal Code
@@ -194,87 +197,89 @@ const Checkout = () => {
       );
     } else if (currentPage === 2) {
       const { address, country, postal_code } = getValues();
-      return (
-        <AnimationRevealPage>
-          <Header className="mb-8" />
-          <h1 className="text-center text-xl font-bold font-mono">Checkout</h1>
-          <div className="mb-8">
-            <h2 className="text-center text-lg font-bold font-mono">
-              Personal Information
-            </h2>
-            <p className="text-center text-base font-mono">
-              Address: {address || formData.address}
-            </p>
-            <p className="text-center text-base font-mono">
-              City: {country || formData.country}
-            </p>
-            <p className="text-center text-base font-mono">
-              Postal Code: {postal_code || formData.postal_code}
-            </p>
+return (
+  <AnimationRevealPage>
+  <Header className="mb-8" />
+  <h1 className="text-center text-2xl font-bold font-mono">Checkout</h1>
+  <div className="mb-8">
+    <h2 className="text-center text-lg font-bold font-mono">
+      Personal Information
+    </h2>
+    <p className="text-center text-base font-mono">
+      Address: {address || formData.address}
+    </p>
+    <p className="text-center text-base font-mono">
+      Country: {country || formData.country}
+    </p>
+    <p className="text-center text-base font-mono">
+      Postal Code: {postal_code || formData.postal_code}
+    </p>
+  </div>
+  <div className="w-full max-w-4xl mx-auto">
+    {items.length === 0 ? (
+      <div className="p-5">
+        <p className="text-center">Your cart is empty.</p>
+      </div>
+    ) : (
+      <>
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className="flex flex-col md:flex-row items-center justify-between bg-gray-100 p-4 rounded-lg shadow-md mb-4"
+          >
+            <div className="flex items-center mb-4 md:mb-0">
+              <img
+                src={
+                  process.env.REACT_APP_API_URL + "/images/" + item.images[0]
+                }
+                alt={item.name}
+                className="h-24 w-24 rounded-lg object-cover"
+              />
+            </div>
+            <div className="flex flex-col ml-3 text-center md:text-left w-full">
+              <p className="font-semibold">Name: {item.name}</p>
+              <p>Description: {item.desc}</p>
+              <p>Price: {item.price} / Item</p>
+            </div>
+            <div className="w-20 text-center border-t border-b mt-2 border-gray-300">
+              {item.quantity}
+            </div>
           </div>
-          <div className="w-full max-w-4xl mx-auto">
-            {items.length === 0 ? (
-              <div className="p-5">
-                <p className="text-center">Your cart is empty.</p>
-              </div>
-            ) : (
-              <>
-                {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex md:flex-row flex-col items-center justify-between bg-white p-4 rounded-lg shadow-md mb-4"
-                  >
-                    <div className="flex items-center w-full md:w-1/4 mb-4 md:mb-0">
-                      <img
-                        src={
-                          process.env.REACT_APP_API_URL + "/images/" + item.images[0]
-                        }
-                        alt={item.name}
-                        className="w-full h-32 object-cover rounded-lg"
-                      />
-                    </div>
-                    <div className="flex flex-col md:flex-row md:gap-x-32 mt-2 w-full md:w-3/4">
-                      <p>Name: {item.name}</p>
-                      <p>Description: {item.desc}</p>
-                      <p>Price: {item.price} / item</p>
-                    </div>
-                    <div className="w-20 text-center border-t border-b mt-2 border-gray-300">
-                      {item.quantity}
-                    </div>
-                  </div>
-                ))}
-                <div className="flex justify-between items-center mt-8">
-                  <div className="flex">
-                    <button
-                      onClick={handleEmptyCart}
-                      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
-                    >
-                      Empty Cart
-                    </button>
-                    <button
-                      onClick={goToBackPage}
-                      className="bg-gray-500 text-white ml-4 px-4 py-2 rounded hover:bg-gray-600 transition-colors"
-                    >
-                      Back
-                    </button>
-                  </div>
-                  <div className="text-lg font-bold">
-                    Total Price: {calculateTotalPrice()}
-                  </div>
-                  <button
-                    onClick={createOrder}
-                    disabled={loading}
-                    className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition-colors"
-                  >
-                    Complete Checkout
-                  </button>
-                </div>
-              </>
-            )}
+        ))}
+        <div className="flex flex-col md:flex-row justify-between items-center mt-8">
+          <div className="flex space-x-4">
+            <button
+              onClick={handleEmptyCart}
+              className="bg-red-500 text-white px-3 py-2 lg:px-4 lg:py-2 rounded hover:bg-red-600 transition"
+            >
+              Empty Cart
+            </button>
+            <button
+              onClick={goToBackPage}
+              className="bg-gray-500 text-white px-3 py-2 lg:px-4 lg:py-2 rounded hover:bg-gray-600 transition"
+            >
+              Back
+            </button>
           </div>
-          <Footer />
-        </AnimationRevealPage>
-      );
+          <div className="text-lg font-bold">
+            Total Price: {calculateTotalPrice()}
+          </div>
+          <button
+            type="submit"
+            disabled={loading || items.length === 0} // Disable if loading or cart is empty
+            className="bg-green-600 text-white px-3 py-2 lg:px-4 lg:py-2 rounded hover:bg-green-700 transition"
+          >
+            Complete Checkout
+          </button>
+        </div>
+      </>
+    )}
+  </div>
+  <Footer />
+</AnimationRevealPage>
+
+);
+
     }
   };
 

@@ -23,6 +23,8 @@ const Filters = () => {
     all_products,
     clearFilters,
   } = useFilterContext();
+  
+  console.log(shipping)
 
   const brands = getUniqueValues(all_products, "brand");// brand
   const colors = getUniqueValues(all_products, "color");

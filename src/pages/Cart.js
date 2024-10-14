@@ -39,7 +39,7 @@ const Cart = () => {
     if (quantity < stock) {
       handleUpdateQuantity(id, quantity + 1);
     } else {
-      toast("Liat Stock Anjay");
+      toast("Stock not available");
     }
   };
 
@@ -72,35 +72,38 @@ const Cart = () => {
                     <img
                       src={process.env.REACT_APP_API_URL + "/images/" + item.images[0]}
                       alt={item.name}
-                      className="w-20 h-20 object-cover mr-4"
+                      className="w-20 h-20 rounded-lg object-cover mr-4"
                     />
                     <div>
-                      <h1 className="text-lg font-bold">{item.name}</h1>
-                      <h3 className="text-gray-500">
-                        {formatPrice(item.price)}
+                      <h1 className="lg:text-lg text-[13px]">Name : <span className="font-bold">{item.name}</span> </h1>
+                      <h3 className="text-gray-500 lg:text-lg text-[13px]">
+                        Price : <span>{formatPrice(item.price)}</span>
                       </h3>
-                      <div
+                      <p className="flex flex-row items-center text-[13px] lg:text-lg">Colors : <div
                         style={{
                           width: "10px",
                           height: "10px",
+                          marginLeft: "4px",
                           backgroundColor: `${item.color}`,
                         }}
                       ></div>
+                      </p>
+                      
                     </div>
                   </div>
                   <div className="flex items-center">
                     <button
                       onClick={() => minus(item.id, item.quantity)}
-                      className="px-4 py-2 bg-gray-300 text-gray-700 rounded-l"
+                      className="px-2 py-1 lg:px-4 lg:py-2 bg-gray-300 text-gray-700 rounded-l"
                     >
                       -
                     </button>
-                    <div className="w-10 text-center border-t border-b border-gray-300">
+                    <div className="w-6 lg:w-10 text-center border-t border-b border-gray-300">
                       {item.quantity}
                     </div>
                     <button
                       onClick={() => plus(item.id, item.quantity, item.stock)}
-                      className="px-4 py-2 bg-gray-300 text-gray-700 rounded-r"
+                      className="px-2 py-1 lg:px-4 lg:py-2 bg-gray-300 text-gray-700 rounded-r"
                     >
                       +
                     </button>
@@ -111,18 +114,18 @@ const Cart = () => {
                 <div className="flex mx-4">
                   <button
                     onClick={handleEmptyCart}
-                    className="bg-red-500 text-white px-4 py-2 rounded"
+                    className="bg-red-500 text-white text-[13px] px-3 text-center py-2 lg:px-4 lg:py-2 lg:text-lg rounded"
                   >
                     Empty Cart
                   </button>
                   <Link 
                     to={user ? "/checkout" : "/login"}
-                    className="bg-green-700 text-white px-4 py-2 rounded mx-4"
+                    className="bg-green-700 text-white text-[13px] text-center px-3 py-2 lg:px-4 lg:py-2 lg:text-lg rounded mx-4"
                   >
                     {user ? "Check Out" : "Login"}
                   </Link>
                 </div>
-                <p className="text-xl font-bold">
+                <p className="text-[13px] lg:text-xl font-bold">
                   Total: {calculateTotalPrice()}
                 </p>
               </div>
